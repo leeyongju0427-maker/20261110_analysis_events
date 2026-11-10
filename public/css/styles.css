@@ -1,0 +1,637 @@
+/* ==============================================================================
+   마음결 (Maeumgyeol) — 스타일시트 (Oasis Britpop Edition)
+   - 테마 컨셉: 90년대 영국 밴드 오아시스(Oasis)의 시그니처 비주얼
+   - 폰트: Montserrat 볼드 산세리프 & Space Grotesk
+   - 컬러: 딥 브리티시 인디고, 오아시스 블랙 박스 로고, 일렉트릭 블루 & 앰버 골드 포인트
+   ============================================================================== */
+
+/* 1. 기본 리셋 및 폰트 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+  background-color: #0C121E; /* 깊은 브리티시 레코드 인디고 톤 */
+  background-image: radial-gradient(circle at 50% 0%, #1A263D 0%, #0C121E 70%);
+  color: #1A202C;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 28px 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 2. 전체 앱 레이아웃 및 메인 패널 */
+.app-layout {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
+.app-panel {
+  width: 100%;
+  min-height: 85vh;
+  background-color: #F8F9FA; /* 클래식 빈티지 앨범 슬리브 크림 화이트 */
+  border: 2px solid #1E293B;
+  border-radius: 20px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 3. 상단 헤더 */
+.app-header {
+  height: 74px;
+  background-color: #FFFFFF;
+  border-bottom: 2px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ★ 오아시스(Oasis) 전설의 밴드 로고 스타일 박스 ★ */
+.oasis-logo-box {
+  background-color: #0A0A0A;
+  border: 2px solid #0A0A0A;
+  padding: 6px 14px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.oasis-logo-box:hover {
+  transform: rotate(-1.5deg) scale(1.02);
+}
+
+.oasis-brand-text {
+  color: #FFFFFF;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.brand-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.5px;
+}
+
+.header-extra .badge {
+  background-color: #0A0A0A;
+  color: #F8FAFC;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* 4. 본문 레이아웃 */
+.app-body {
+  display: flex;
+  flex: 1;
+}
+
+/* 사이드바 */
+.app-nav {
+  width: 230px;
+  border-right: 2px solid #E2E8F0;
+  padding: 32px 18px;
+  background-color: #F1F5F9;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #64748B;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-track-no {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #94A3B8;
+}
+
+.nav-link:hover {
+  background-color: #E2E8F0;
+  color: #0F172A;
+}
+
+.nav-item.active .nav-link {
+  background-color: #0A0A0A;
+  color: #FFFFFF;
+  border-color: #0A0A0A;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-item.active .nav-track-no {
+  color: #38BDF8; /* 일렉트릭 블루 */
+}
+
+/* 메인 콘텐츠 */
+.app-content {
+  flex: 1;
+  padding: 44px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  background-color: #F8F9FA;
+}
+
+/* 5. 타이틀 & 인트로 */
+.intro-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 2px solid #E2E8F0;
+  padding-bottom: 24px;
+}
+
+.track-tag {
+  display: inline-block;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0284C7;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: #0F172A;
+  letter-spacing: -0.8px;
+  margin-bottom: 8px;
+}
+
+.page-desc {
+  font-size: 15px;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.intro-illustration {
+  display: flex;
+  gap: 8px;
+}
+
+.vinyl-badge {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1.5px solid #CBD5E1;
+  background-color: #FFFFFF;
+  color: #334155;
+  cursor: default;
+  transition: transform 0.2s;
+}
+
+.vinyl-badge:hover {
+  transform: translateY(-2px);
+}
+
+.positive-vibe {
+  border-color: #10B981;
+  color: #047857;
+  background-color: #ECFDF5;
+}
+
+.neutral-vibe {
+  border-color: #94A3B8;
+  color: #475569;
+  background-color: #F8FAFC;
+}
+
+.negative-vibe {
+  border-color: #F43F5E;
+  color: #BE123C;
+  background-color: #FFF1F2;
+}
+
+/* 6. 입력 폼 */
+.analysis-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #475569;
+}
+
+.text-input {
+  width: 100%;
+  padding: 18px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #0F172A;
+  background-color: #FFFFFF;
+  border: 2px solid #CBD5E1;
+  border-radius: 12px;
+  resize: vertical;
+  min-height: 130px;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.text-input:focus {
+  border-color: #0F172A;
+  box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.1);
+}
+
+.input-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #64748B;
+}
+
+.privacy-note {
+  font-size: 12px;
+}
+
+.char-count {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ★ 오아시스 스타일 볼드 록 액션 버튼 ★ */
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.analyze-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 34px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #FFFFFF;
+  background-color: #0F172A;
+  border: 2px solid #0F172A;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #0284C7;
+  transition: all 0.15s ease;
+}
+
+.analyze-button:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #0284C7;
+  background-color: #1E293B;
+}
+
+.analyze-button:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #0284C7;
+}
+
+.analyze-button:disabled {
+  background-color: #94A3B8;
+  border-color: #94A3B8;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #FFFFFF;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 7. 상태 및 오류 메시지 박스 */
+.status-message {
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #FEF2F2;
+  color: #DC2626;
+  border: 2px solid #FECACA;
+}
+
+/* 8. 결과 표시 카드 (LP 슬리브 스타일) */
+.result-section {
+  background-color: #FFFFFF;
+  border: 2px solid #0F172A;
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 5px 5px 0px #E2E8F0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tape-tag {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #0284C7;
+}
+
+.result-header .result-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #0F172A;
+  margin-top: 2px;
+}
+
+.result-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sentiment-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background-color: #F8FAFC;
+  border-radius: 12px;
+  border: 2px solid #E2E8F0;
+}
+
+.sentiment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.sentiment-badge.positive {
+  background-color: #DCFCE7;
+  color: #15803D;
+  border: 1.5px solid #86EFAC;
+}
+
+.sentiment-badge.negative {
+  background-color: #FFE4E6;
+  color: #BE123C;
+  border: 1.5px solid #FDA4AF;
+}
+
+.sentiment-badge.neutral {
+  background-color: #F1F5F9;
+  color: #475569;
+  border: 1.5px solid #CBD5E1;
+}
+
+.confidence-box {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.confidence-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 1px;
+}
+
+.confidence-value {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  color: #0284C7;
+}
+
+.reason-box {
+  background-color: #F8FAFC;
+  border-radius: 12px;
+  padding: 20px 24px;
+  border: 1.5px solid #E2E8F0;
+}
+
+.reason-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #64748B;
+  margin-bottom: 8px;
+}
+
+.reason-text {
+  font-size: 16px;
+  color: #1E293B;
+  line-height: 1.7;
+  font-weight: 500;
+}
+
+.result-footer .disclaimer-text {
+  font-size: 12px;
+  color: #94A3B8;
+  line-height: 1.5;
+}
+
+/* 9. 안내 모달 */
+.about-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(12, 18, 30, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.about-card {
+  background-color: #FFFFFF;
+  border: 2px solid #0F172A;
+  border-radius: 16px;
+  max-width: 520px;
+  width: 100%;
+  padding: 32px;
+  box-shadow: 8px 8px 0px #0284C7;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.oasis-mini-box {
+  display: inline-block;
+  background-color: #0A0A0A;
+  color: #FFFFFF;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+
+.about-card h2 {
+  font-size: 22px;
+  font-weight: 900;
+  color: #0F172A;
+}
+
+.about-card p, .about-card ul {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.about-card ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.close-btn {
+  align-self: flex-end;
+  background-color: #0F172A;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.close-btn:hover {
+  background-color: #1E293B;
+}
+
+/* 10. 반응형 (모바일 768px 이하) */
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  .app-panel {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    min-height: 100vh;
+  }
+
+  .app-header {
+    padding: 0 18px;
+  }
+
+  .oasis-brand-text {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+  }
+
+  .app-body {
+    flex-direction: column;
+  }
+
+  .app-nav {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #E2E8F0;
+    padding: 12px 18px;
+  }
+
+  .nav-list {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .app-content {
+    padding: 24px 18px;
+    gap: 20px;
+  }
+
+  .intro-illustration {
+    display: none;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .analyze-button {
+    width: 100%;
+  }
+
+  .sentiment-indicator {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

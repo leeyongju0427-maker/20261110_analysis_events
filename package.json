@@ -1,0 +1,25 @@
+{
+  "name": "maeumgyeol",
+  "version": "1.0.0",
+  "description": "마음결 - AI 텍스트 감성 분석 웹 서비스",
+  "type": "module",
+  "main": "api/analyze.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "sentiment-analysis",
+    "openai",
+    "supabase",
+    "vanilla-js"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
+    "dotenv": "^16.4.7",
+    "openai": "^4.85.4"
+  }
+}
+

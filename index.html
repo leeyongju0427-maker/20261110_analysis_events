@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마음결 — 텍스트 감성 분석 (Oasis Edition)</title>
+  <meta name="description" content="영국 밴드 오아시스(Oasis) 감성의 텍스트 감성 분석 웹 서비스">
+  
+  <!-- 오아시스(Oasis) 로고 및 브릿팝 감성을 살리는 볼드 폰트 (Montserrat, Space Grotesk) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- 스타일시트 연결 -->
+  <link rel="stylesheet" href="/public/css/styles.css">
+</head>
+<body>
+  <!-- 전체 화면을 감싸는 컨테이너 (브릿팝 레코드 딥 네이비 배경) -->
+  <div class="app-layout">
+    
+    <!-- 중앙 메인 패널 (빈티지 앨범 자켓 느낌의 오프화이트 카드) -->
+    <div class="app-panel">
+      
+      <!-- 1. 상단 헤더 영역 (Oasis 밴드 로고 박스 스타일) -->
+      <header class="app-header">
+        <div class="brand">
+          <!-- 오아시스 시그니처: 검정 직사각형 박스 + 흰색 볼드 타이포 로고 -->
+          <div class="oasis-logo-box">
+            <span class="oasis-brand-text">MAEUMGYEOL</span>
+          </div>
+          <span class="brand-title">마음결</span>
+        </div>
+        
+        <!-- 헤더 우측 브릿팝 테마 배지 -->
+        <div class="header-extra">
+          <span class="badge">BRITPOP SENTIMENT</span>
+        </div>
+      </header>
+
+      <!-- 2. 본문 레이아웃 (사이드바 + 메인 콘텐츠) -->
+      <div class="app-body">
+        
+        <!-- 왼쪽 세로 내비게이션 -->
+        <nav class="app-nav" aria-label="메인 메뉴">
+          <ul class="nav-list">
+            <li class="nav-item active">
+              <a href="#analyze" class="nav-link" aria-current="page">
+                <span class="nav-track-no">01</span>
+                <span>감성 분석</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#about" class="nav-link" id="nav-about-link">
+                <span class="nav-track-no">02</span>
+                <span>서비스 안내</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- 오른쪽 메인 콘텐츠 영역 -->
+        <main class="app-content">
+          
+          <!-- 페이지 타이틀 & 인트로 (Morning Glory 느낌의 볼드 타이포) -->
+          <section class="intro-section">
+            <div class="intro-text">
+              <span class="track-tag">TRACK 01 // TEXT ANALYSIS</span>
+              <h1 class="page-title">문장 속 감정을 읽어드려요</h1>
+              <p class="page-desc">텍스트를 입력하면 AI가 긍정, 부정, 중립의 바이브(Vibe)를 분석합니다.</p>
+            </div>
+            <!-- 브릿팝 무드의 레코드 디스크 / 표정 뱃지 -->
+            <div class="intro-illustration" aria-hidden="true">
+              <span class="vinyl-badge positive-vibe" title="긍정">UPBEAT 😊</span>
+              <span class="vinyl-badge neutral-vibe" title="중립">CHILL 😐</span>
+              <span class="vinyl-badge negative-vibe" title="부정">BLUES 😔</span>
+            </div>
+          </section>
+
+          <!-- 감성 분석 입력 폼 -->
+          <form id="sentiment-form" class="analysis-form" novalidate>
+            <div class="input-group">
+              <label for="text-input" class="input-label">ANALYZE YOUR LYRICS / TEXT</label>
+              <textarea
+                id="text-input"
+                name="text"
+                class="text-input"
+                rows="5"
+                maxlength="1000"
+                placeholder="분석하고 싶은 문장을 입력해 주세요. (예: 오늘 밤은 록스타가 된 기분이야!)"
+                required
+              ></textarea>
+              
+              <!-- 글자 수 카운터 및 개인정보 안내 -->
+              <div class="input-meta">
+                <span class="privacy-note">※ 개인정보 보호를 위해 주민번호, 비밀번호 등 민감한 정보는 입력을 삼가주세요.</span>
+                <span id="char-count" class="char-count">0 / 1,000자</span>
+              </div>
+            </div>
+
+            <!-- 오아시스 스타일 볼드 제출 버튼 -->
+            <div class="button-group">
+              <button type="submit" id="analyze-button" class="analyze-button">
+                <span class="button-text">감성 분석하기</span>
+                <span class="spinner" aria-hidden="true" style="display: none;"></span>
+              </button>
+            </div>
+          </form>
+
+          <!-- 상태 및 에러 메시지 표시 영역 -->
+          <div id="status-message" class="status-message" role="alert" aria-live="polite" style="display: none;"></div>
+
+          <!-- 결과 표시 카드 (LP 앨범 슬리브 스타일) -->
+          <section id="result-section" class="result-section" aria-live="polite" style="display: none;">
+            <div class="result-header">
+              <span class="tape-tag">ANALYSIS RESULT</span>
+              <h2 class="result-title">분석 결과 리포트</h2>
+            </div>
+            
+            <div class="result-body">
+              <div class="sentiment-indicator">
+                <!-- 감성 배지 (positive, negative, neutral) -->
+                <div id="sentiment-badge" class="sentiment-badge">
+                  <span id="sentiment-icon" class="sentiment-icon">●</span>
+                  <span id="sentiment-label" class="sentiment-label">긍정</span>
+                </div>
+                <!-- 신뢰도 표시 -->
+                <div class="confidence-box">
+                  <span class="confidence-title">CONFIDENCE</span>
+                  <span id="confidence-value" class="confidence-value">0%</span>
+                </div>
+              </div>
+
+              <!-- 분석 이유 -->
+              <div class="reason-box">
+                <h3 class="reason-title">AI 판단 근거 & 문맥</h3>
+                <p id="reason-text" class="reason-text"></p>
+              </div>
+
+              <!-- 결과 신뢰도 유의사항 안내 -->
+              <div class="result-footer">
+                <p class="disclaimer-text">
+                  ※ 신뢰도는 AI 모델의 추정값이며 실제 감정이나 의도를 확정하지 않습니다. 전문 심리 진단이나 사실 판정의 목적으로 사용할 수 없습니다.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 서비스 안내 모달 (기본은 닫힘) -->
+          <section id="about-section" class="about-section" style="display: none;">
+            <div class="about-card">
+              <div class="about-header">
+                <span class="oasis-mini-box">OASIS EDITION</span>
+                <h2>마음결 서비스 안내</h2>
+              </div>
+              <p>마음결은 사용자가 입력한 짧은 글이나 문장의 전반적인 감정(긍정, 부정, 중립)을 인공지능이 분석해 주는 도구입니다.</p>
+              <ul>
+                <li><strong>데이터 안전 관리:</strong> 분석을 위해 입력하신 문장은 서비스 통계 및 분석 이력 확인을 위해 안전하게 저장됩니다.</li>
+                <li><strong>AI 분석의 한계:</strong> 위트, 반어법, 복합적인 비유는 인공지능이 실제 뉘앙스와 다르게 해석할 수 있습니다.</li>
+              </ul>
+              <button type="button" id="close-about-btn" class="close-btn">닫기</button>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- 프론트엔드 자바스크립트 연결 -->
+  <script src="/public/js/app.js"></script>
+</body>
+</html>
