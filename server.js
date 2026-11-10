@@ -3,9 +3,10 @@
  * 마음결 (Maeumgyeol) — 로컬 개발용 웹 서버 (server.js)
  * 
  * [설명]
- * - Vercel CLI 설치 없이도 로컬에서 바로 프론트엔드 화면과 /api/analyze API를 테스트할 수 있는
- *   Node.js 내장 http 기반 개발용 서버입니다.
- * - IPv4(127.0.0.1)와 IPv6(localhost) 모두 원활하게 접속되도록 0.0.0.0에 바인딩합니다.
+ * - Vercel CLI 설치 없이도 로컬에서 바로 프론트엔드 화면과 /api/analyze API를 테스트할 수 있는 개발 서버입니다.
+ * - IPv4(127.0.0.1)와 IPv6(localhost)를 모두 지원합니다.
+ * - styles.css, app.js 등 정적 파일 요청 경로(/public/css/..., /css/..., /styles.css 등)를
+ *   스마트하게 자동 감지하여 404 없이 서빙합니다.
  * ==============================================================================
  */
 
@@ -35,6 +36,32 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.ico': 'image/x-icon'
 };
+
+// 요청된 URL 경로에서 실제 파일 경로를 찾아내는 스마트 파일 탐색 함수
+function resolveStaticFilePath(pathname) {
+  let cleanPath = pathname === '/' ? 'index.html' : pathname;
+  if (cleanPath.startsWith('/')) {
+    cleanPath = cleanPath.slice(1);
+  }
+
+  const filename = path.basename(cleanPath);
+
+  // 검색할 후보 경로 목록
+  const candidates = [
+    path.join(__dirname, cleanPath),                         // 1. 요청 경로 그대로
+    path.join(__dirname, 'public', cleanPath),               // 2. public/ 아래 경로
+    path.join(__dirname, 'public', 'css', filename),         // 3. public/css/ 파일명
+    path.join(__dirname, 'public', 'js', filename)           // 4. public/js/ 파일명
+  ];
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
+      return candidate;
+    }
+  }
+
+  return null;
+}
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
@@ -81,25 +108,22 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 2. 정적 파일 서빙 (index.html, public/...)
-  let relativeFilePath = pathname === '/' ? 'index.html' : pathname;
-  if (relativeFilePath.startsWith('/')) {
-    relativeFilePath = relativeFilePath.slice(1);
+  // 2. 정적 파일 서빙 (스마트 경로 매핑)
+  const resolvedPath = resolveStaticFilePath(pathname);
+
+  if (!resolvedPath) {
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end(`404 Not Found - '${pathname}' 파일을 찾을 수 없습니다.`);
+    return;
   }
 
-  const filePath = path.join(__dirname, relativeFilePath);
-  const ext = path.extname(filePath).toLowerCase();
+  const ext = path.extname(resolvedPath).toLowerCase();
   const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
-  fs.readFile(filePath, (err, content) => {
+  fs.readFile(resolvedPath, (err, content) => {
     if (err) {
-      if (err.code === 'ENOENT') {
-        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-        res.end('404 Not Found - 파일을 찾을 수 없습니다.');
-      } else {
-        res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
-        res.end('500 Server Error');
-      }
+      res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('500 Server Error');
       return;
     }
 
