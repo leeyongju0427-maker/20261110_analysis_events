@@ -67,6 +67,13 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = url.pathname;
 
+  // 파비콘 요청 시 204 No Content 응답 (404 콘솔 에러 방지)
+  if (pathname === '/favicon.ico') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
   // 1. API 라우트 (/api/analyze)
   if (pathname === '/api/analyze') {
     let bodyData = '';
