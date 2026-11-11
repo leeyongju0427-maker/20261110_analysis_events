@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>마음결 — 텍스트 감성 분석 (Oasis Edition)</title>
   <meta name="description" content="영국 밴드 오아시스(Oasis) 감성의 텍스트 감성 분석 웹 서비스">
-  
+
   <!-- 브라우저 탭 아이콘 (파비콘 404 방지 및 오아시스 무드 아이콘 적용) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230A0A0A%22/><text y=%2268%22 font-size=%2260%22 font-family=%22sans-serif%22 font-weight=%22bold%22 fill=%22%230088FF%22 text-anchor=%22middle%22 x=%2250%22>M</text></svg>">
-  
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230A0A0A%22/><text y=%2268%22 font-size=%2260%22 font-family=%22sans-serif%22 font-weight=%22bold%22 fill=%22%230088FF%22 text-anchor=%22middle%22 x=%2250%22>M</text></svg>">
+
   <!-- 오아시스(Oasis) 로고 및 브릿팝 감성을 살리는 볼드 폰트 (Montserrat, Space Grotesk) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,800&family=Space+Grotesk:wght@600;700&display=swap"
+    rel="stylesheet">
 
   <!-- 스타일시트 연결 (상대 경로로 지정하여 GitHub Pages, Vercel, 로컬 모두 404 방지) -->
   <link rel="stylesheet" href="./public/css/styles.css">
 </head>
+
 <body>
   <!-- 전체 화면을 감싸는 컨테이너 (브릿팝 레코드 딥 네이비 배경) -->
   <div class="app-layout">
-    
+
     <!-- 중앙 메인 패널 (빈티지 앨범 자켓 느낌의 오프화이트 카드) -->
     <div class="app-panel">
-      
+
       <!-- 1. 상단 헤더 영역 (Oasis 밴드 로고 박스 스타일) -->
       <header class="app-header">
         <div class="brand">
@@ -33,7 +38,7 @@
           </div>
           <span class="brand-title">마음결</span>
         </div>
-        
+
         <!-- 헤더 우측 브릿팝 테마 배지 -->
         <div class="header-extra">
           <span class="badge">BRITPOP SENTIMENT</span>
@@ -42,7 +47,7 @@
 
       <!-- 2. 본문 레이아웃 (사이드바 + 메인 콘텐츠) -->
       <div class="app-body">
-        
+
         <!-- 왼쪽 세로 내비게이션 -->
         <nav class="app-nav" aria-label="메인 메뉴">
           <ul class="nav-list">
@@ -63,7 +68,7 @@
 
         <!-- 오른쪽 메인 콘텐츠 영역 -->
         <main class="app-content">
-          
+
           <!-- 페이지 타이틀 & 인트로 (Morning Glory 느낌의 볼드 타이포) -->
           <section class="intro-section">
             <div class="intro-text">
@@ -83,16 +88,9 @@
           <form id="sentiment-form" class="analysis-form" novalidate>
             <div class="input-group">
               <label for="text-input" class="input-label">ANALYZE YOUR LYRICS / TEXT</label>
-              <textarea
-                id="text-input"
-                name="text"
-                class="text-input"
-                rows="5"
-                maxlength="1000"
-                placeholder="분석하고 싶은 문장을 입력해 주세요. (예: 오늘 밤은 록스타가 된 기분이야!)"
-                required
-              ></textarea>
-              
+              <textarea id="text-input" name="text" class="text-input" rows="5" maxlength="1000"
+                placeholder="분석하고 싶은 문장을 입력해 주세요. (예: 오늘 밤은 록스타가 된 기분이야!)" required></textarea>
+
               <!-- 글자 수 카운터 및 개인정보 안내 -->
               <div class="input-meta">
                 <span class="privacy-note">※ 개인정보 보호를 위해 주민번호, 비밀번호 등 민감한 정보는 입력을 삼가주세요.</span>
@@ -118,7 +116,7 @@
               <span class="tape-tag">ANALYSIS RESULT</span>
               <h2 class="result-title">분석 결과 리포트</h2>
             </div>
-            
+
             <div class="result-body">
               <div class="sentiment-indicator">
                 <!-- 감성 배지 (positive, negative, neutral) -->
@@ -172,4 +170,5 @@
   <!-- 프론트엔드 자바스크립트 연결 (상대 경로 지정) -->
   <script src="./public/js/app.js"></script>
 </body>
+
 </html>

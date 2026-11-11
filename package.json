@@ -5,6 +5,7 @@
   "type": "module",
   "main": "api/analyze.js",
   "scripts": {
+    "build": "node -e \"console.log('Build completed')\"",
     "start": "node server.js",
     "dev": "node server.js"
   },
